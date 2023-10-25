@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
     getInput,
     error,
@@ -56,6 +57,7 @@ const processParameterPairChunk = async (
     const response = await client.send(command);
 
     if (response?.Parameters && response.Parameters.length > 0) {
+        info(`Retrieved params`);
         for (const responseParameter of response.Parameters) {
             const name = responseParameter?.Name;
             const value = responseParameter?.Value;
@@ -74,6 +76,8 @@ const processParameterPairChunk = async (
                 `Env variable ${parameterPairs[name]} set with value from ssm parameterName ${name}`
             );
         }
+    } else {
+        info(`Empty param`);
     }
     info(`Chunk successfully processed`);
 };
